@@ -32,8 +32,6 @@ func _process(_delta):
 func do_damage(damage: int):
 	hp -= damage
 	
-	print(self.name + " took " + str(damage) + " damage")
-	
 	if hp <= 0:
 		die()
 

@@ -47,6 +47,4 @@ func _on_fireball_timer_timeout() -> void:
 		fireball.speed = player.unit.projectile_speed / 1
 		fireball.target = player.unit.target
 		
-		print("fireball to " + fireball.target.name)
-		
 		add_child(fireball)

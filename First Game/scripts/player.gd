@@ -16,8 +16,6 @@ func _physics_process(_delta):
 		var random_unit_index = randi_range(0, num_units - 1)
 		var unit_values = units.values()
 		
-		print("tar idx " + str(random_unit_index) + " of " + str(unit_values.size()))
-		
 		unit.target = units.values()[random_unit_index]
 	else:
 		unit.target = null
