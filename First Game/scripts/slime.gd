@@ -1,20 +1,14 @@
 extends Node2D
 
-const SPEED = 60
+@export var speed = 0.4
 
-var direction = 1
-
-@onready var ray_cast_right = $RayCastRight
-@onready var ray_cast_left = $RayCastLeft
+@onready var player = get_parent().get_parent().player 
 @onready var animated_sprite = $AnimatedSprite2D
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if ray_cast_right.is_colliding():
-		direction = -1
-		animated_sprite.flip_h = true
-	if ray_cast_left.is_colliding():
-		direction = 1
-		animated_sprite.flip_h = false
+func _physics_process(delta):
+	animated_sprite.flip_h = player.position.x < position.x
 	
-	position.x += direction * SPEED * delta
+	position = position.move_toward(player.position, speed)
+
+func die():
+	queue_free()

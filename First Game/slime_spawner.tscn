@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://n2hcidq3ip67"]
+
+[ext_resource type="Script" path="res://slime_spawner.gd" id="1_wcpul"]
+
+[node name="SlimeSpawner" type="Node2D"]
+position = Vector2(139, 271)
+script = ExtResource("1_wcpul")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
