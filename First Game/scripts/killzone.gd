@@ -12,4 +12,3 @@ func _on_body_entered(body):
 # Doesn't fire if node killed by fireball before timeout
 func _on_timer_timeout():
 	Engine.time_scale = 1.0
-	print(get_tree().reload_current_scene())

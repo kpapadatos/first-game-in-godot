@@ -7,7 +7,6 @@ extends Node2D
 
 func _ready() -> void:
 	timer.wait_time = interval_sec
-	print("ready")
 
 func _on_timer_timeout() -> void:
 	var slime = SLIME.instantiate()

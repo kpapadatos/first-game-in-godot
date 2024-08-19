@@ -11,10 +11,17 @@ func _physics_process(_delta):
 	do_movement()
 	
 	var units = get_parent().get_parent().units
+	var num_units = units.size()
 	
-	for unit_id in units:
-		target = units[unit_id]
-		break
+	if num_units:
+		var random_unit_index = randi_range(0, num_units - 1)
+		var unit_values = units.values()
+		
+		print("tar idx " + str(random_unit_index) + " of " + str(unit_values.size()))
+		
+		target = units.values()[random_unit_index]
+	else:
+		target = null
 
 func do_movement():
 	# Get the input direction: -1, 0, 1

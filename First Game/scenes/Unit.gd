@@ -15,4 +15,4 @@ func die():
 	coin.position = position
 	
 	scene.objects.add_child(coin)
-	scene.add_xp(2)
+	scene.add_xp(20)
