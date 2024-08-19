@@ -21,6 +21,6 @@ func _physics_process(_delta) -> void:
 			queue_free()
 			
 			if is_instance_valid(target):
-				target.die()	
+				target.do_damage(1)	
 	else:
 		queue_free()

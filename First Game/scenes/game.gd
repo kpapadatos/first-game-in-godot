@@ -1,19 +1,14 @@
 extends Node2D
 
 var score = 0
-var xp = 0
-var xp_max = 100
-var level = 1
-var attack_speed = 1
-var projectile_speed = 1
 
-@export var player: Node2D
 @export var grid_size_x = 16
 @export var grid_size_y = 16
 
 const XP_PROGRESS_SIZE_MAX = 891
 const FIREBALL = preload("res://fireball.tscn")
 
+@onready var player = %Player
 @onready var score_label = %ScoreLabel
 @onready var xp_progress = %XPProgress
 @onready var xp_label = %XPLabel
@@ -36,30 +31,21 @@ func add_point():
 	score_label.text = str(score) + " coins"
 	
 func add_xp(add_xp: int):
-	xp += add_xp
-	
-	if xp >= xp_max:
-		level += 1
-		xp = xp - xp_max
-		xp_max = roundf(float(xp_max) * 1.02)
+	player.unit.add_xp(add_xp)
 		
-		attack_speed += 0.1
-		projectile_speed += 0.1
-		
-		fireball_timer.wait_time = 1 / attack_speed
-		
-	level_label.text = "Lv." + str(level)
-	xp_label.text = str(xp) + " / " + str(xp_max)
-	xp_progress.size.x = (float(xp) / float(xp_max)) * XP_PROGRESS_SIZE_MAX
+	fireball_timer.wait_time = 1 / player.unit.attack_speed
+	level_label.text = "Lv." + str(player.unit.level)
+	xp_label.text = str(player.unit.xp) + " / " + str(player.unit.xp_max)
+	xp_progress.size.x = (float(player.unit.xp) / float(player.unit.xp_max)) * XP_PROGRESS_SIZE_MAX
 	
 func _on_fireball_timer_timeout() -> void:
-	if player.target:
+	if player.unit.target != null:
 		var fireball = FIREBALL.instantiate()
 		
 		fireball.position = player.position
 		
-		fireball.speed = projectile_speed / 1
-		fireball.target = player.target
+		fireball.speed = player.unit.projectile_speed / 1
+		fireball.target = player.unit.target
 		
 		print("fireball to " + fireball.target.name)
 		

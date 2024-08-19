@@ -4,8 +4,7 @@ const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 
 @onready var animated_sprite = $AnimatedSprite2D
-
-var target: Node2D
+@onready var unit = $Unit
 
 func _physics_process(_delta):
 	do_movement()
@@ -19,9 +18,9 @@ func _physics_process(_delta):
 		
 		print("tar idx " + str(random_unit_index) + " of " + str(unit_values.size()))
 		
-		target = units.values()[random_unit_index]
+		unit.target = units.values()[random_unit_index]
 	else:
-		target = null
+		unit.target = null
 
 func do_movement():
 	# Get the input direction: -1, 0, 1

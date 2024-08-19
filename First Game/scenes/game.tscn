@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=15 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_yjxmg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c0o51agdt6p5w" path="res://assets/sprites/Sprite-0001.png" id="4_s5tb2"]
 [ext_resource type="Script" path="res://scenes/background.gd" id="5_oteob"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="5_x8euu"]
+[ext_resource type="Script" path="res://scenes/Unit.gd" id="9_la3cs"]
 [ext_resource type="PackedScene" uid="uid://n2hcidq3ip67" path="res://slime_spawner.tscn" id="12_nbp2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
@@ -186,10 +187,9 @@ sources/1 = SubResource("TileSetAtlasSource_6nfn7")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cn5tm"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_yjxmg")
-player = NodePath("Objects/Player")
 grid_size_x = 17
 grid_size_y = 17
 
@@ -233,6 +233,12 @@ position = Vector2(0, -7)
 zoom = Vector2(4, 4)
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="Unit" type="Node2D" parent="Objects/Player"]
+position = Vector2(-111, -112)
+script = ExtResource("9_la3cs")
+hp = 100
+hp_max = 100
 
 [node name="Coin" parent="Objects" instance=ExtResource("4_28cek")]
 position = Vector2(73, 68)
