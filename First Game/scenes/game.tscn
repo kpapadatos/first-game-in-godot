@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=15 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://c0o51agdt6p5w" path="res://assets/sprites/Sprite-0001.png" id="4_s5tb2"]
 [ext_resource type="Script" path="res://scenes/background.gd" id="5_oteob"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="5_x8euu"]
-[ext_resource type="FontFile" uid="uid://dbjl1e6kdxpl6" path="res://assets/fonts/PixelOperator8.ttf" id="7_8cblx"]
 [ext_resource type="PackedScene" uid="uid://n2hcidq3ip67" path="res://slime_spawner.tscn" id="12_nbp2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
@@ -191,25 +190,13 @@ sources/1 = SubResource("TileSetAtlasSource_6nfn7")
 [node name="Game" type="Node2D" node_paths=PackedStringArray("player")]
 y_sort_enabled = true
 script = ExtResource("1_yjxmg")
-player = NodePath("Player")
+player = NodePath("Objects/Player")
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_l4ihi")
 grid_size_x = 17
 grid_size_y = 17
-
-[node name="ScoreLabel" type="Label" parent="GameManager"]
-offset_left = 513.0
-offset_top = -144.0
-offset_right = 618.0
-offset_bottom = -125.0
-theme_override_colors/font_color = Color(0.0980392, 0.313726, 0.752941, 1)
-theme_override_fonts/font = ExtResource("2_nlliu")
-theme_override_font_sizes/font_size = 8
-text = "You collected X coins."
-horizontal_alignment = 1
-autowrap_mode = 2
 
 [node name="TileMap" type="Node" parent="."]
 
@@ -224,58 +211,164 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAD/////AAAAAAEAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAEAAAD//wQAAAAAAAEAAAD//wUAAAAAAAEAAAD//wYAAAAAAAEAAAD//wcAAAAAAAEAAAD//wgAAAAAAAEAAAD//wkAAAAAAAEAAAD//woAAAAAAAEAAAD//wsAAAAAAAEAAAD//wwAAAAAAAEAAAD//w0AAAAAAAEAAAD//w4AAAAAAAEAAAD//w8AAAAAAAEAAAD//xAAAAAAAAEAAAD//xEAAAAAAAEAAAAAAP//AAAAAAEAAAAAABEAAAAAAAEAAAABAP//AAAAAAEAAAABABEAAAAAAAEAAAACAP//AAAAAAEAAAACABEAAAAAAAEAAAADAP//AAAAAAEAAAADABEAAAAAAAEAAAAEAP//AAAAAAEAAAAEABEAAAAAAAEAAAAFAP//AAAAAAEAAAAFABEAAAAAAAEAAAAGAP//AAAAAAEAAAAGABEAAAAAAAEAAAAHAP//AAAAAAEAAAAHABEAAAAAAAEAAAAIAP//AAAAAAEAAAAIABEAAAAAAAEAAAAJAP//AAAAAAEAAAAJABEAAAAAAAEAAAAKAP//AAAAAAEAAAAKABEAAAAAAAEAAAALAP//AAAAAAEAAAALABEAAAAAAAEAAAAMAP//AAAAAAEAAAAMABEAAAAAAAEAAAANAP//AAAAAAEAAAANABEAAAAAAAEAAAAOAP//AAAAAAEAAAAOABEAAAAAAAEAAAAPAP//AAAAAAEAAAAPABEAAAAAAAEAAAAQAP//AAAAAAEAAAAQABEAAAAAAAEAAAARAP//AAAAAAEAAAARAAAAAAAAAAEAAAARAAEAAAAAAAEAAAARAAIAAAAAAAEAAAARAAMAAAAAAAEAAAARAAQAAAAAAAEAAAARAAUAAAAAAAEAAAARAAYAAAAAAAEAAAARAAcAAAAAAAEAAAARAAgAAAAAAAEAAAARAAkAAAAAAAEAAAARAAoAAAAAAAEAAAARAAsAAAAAAAEAAAARAAwAAAAAAAEAAAARAA0AAAAAAAEAAAARAA4AAAAAAAEAAAARAA8AAAAAAAEAAAARABAAAAAAAAEAAAARABEAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_wvtw0")
 
-[node name="Player" parent="." instance=ExtResource("1_rbmkf")]
-unique_name_in_owner = true
-y_sort_enabled = true
-position = Vector2(111, 112)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -7)
-zoom = Vector2(4, 4)
-limit_smoothed = true
-position_smoothing_enabled = true
-
 [node name="Killzone" parent="." instance=ExtResource("5_x8euu")]
 position = Vector2(0, 344)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_cn5tm")
 
-[node name="Coins" type="Node" parent="."]
-
-[node name="Coin" parent="Coins" instance=ExtResource("4_28cek")]
-position = Vector2(73, 68)
-
-[node name="Coin2" parent="Coins" instance=ExtResource("4_28cek")]
-position = Vector2(217, 69)
-
-[node name="Coin3" parent="Coins" instance=ExtResource("4_28cek")]
-position = Vector2(232, 69)
-
-[node name="Coin4" parent="Coins" instance=ExtResource("4_28cek")]
-position = Vector2(236, 229)
-
 [node name="Platforms" type="Node" parent="."]
-
-[node name="Labels" type="Node" parent="."]
-
-[node name="Label4" type="Label" parent="Labels"]
-offset_left = 520.0
-offset_top = -163.0
-offset_right = 616.0
-offset_bottom = -145.0
-theme_override_colors/font_color = Color(0.0980392, 0.313726, 0.752941, 1)
-theme_override_fonts/font = ExtResource("7_8cblx")
-theme_override_font_sizes/font_size = 8
-text = "Great job!"
-horizontal_alignment = 1
 
 [node name="FireballTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="SlimeSpawner" parent="." instance=ExtResource("12_nbp2v")]
 
-[node name="Units" type="Node2D" parent="."]
+[node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="Player" parent="Objects" instance=ExtResource("1_rbmkf")]
+unique_name_in_owner = true
+y_sort_enabled = true
+position = Vector2(111, 112)
+
+[node name="Camera2D" type="Camera2D" parent="Objects/Player"]
+position = Vector2(0, -7)
+zoom = Vector2(4, 4)
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="Coin" parent="Objects" instance=ExtResource("4_28cek")]
+position = Vector2(73, 68)
+
+[node name="Coin2" parent="Objects" instance=ExtResource("4_28cek")]
+position = Vector2(217, 69)
+
+[node name="Coin3" parent="Objects" instance=ExtResource("4_28cek")]
+position = Vector2(232, 69)
+
+[node name="Coin4" parent="Objects" instance=ExtResource("4_28cek")]
+position = Vector2(236, 229)
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="TopCenterControl" type="Control" parent="GUI"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.5
+offset_right = 144.5
+offset_bottom = 162.0
+grow_horizontal = 2
+
+[node name="ScoreLabel" type="Label" parent="GUI/TopCenterControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -217.0
+offset_top = 26.0
+offset_right = -118.0
+offset_bottom = 49.0
+grow_horizontal = 2
+scale = Vector2(4.38, 4.38)
+theme_override_colors/font_color = Color(0.741473, 0.732901, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_nlliu")
+theme_override_font_sizes/font_size = 8
+text = "0 coins"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="BottomCenterControl" type="Control" parent="GUI"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = -648.0
+offset_right = 144.0
+offset_bottom = -486.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="XPLabel" type="Label" parent="GUI/BottomCenterControl"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -223.0
+offset_top = 590.0
+offset_right = -124.0
+offset_bottom = 613.0
+grow_horizontal = 2
+scale = Vector2(4.38, 4.38)
+theme_override_colors/font_color = Color(1, 1, 1, 0.631373)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_nlliu")
+theme_override_font_sizes/font_size = 8
+text = "0 / 100"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="XPOutline" type="ColorRect" parent="GUI/BottomCenterControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -452.0
+offset_top = 428.0
+offset_right = 451.0
+offset_bottom = 468.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="XPBG" type="ColorRect" parent="GUI/BottomCenterControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -446.0
+offset_top = 433.0
+offset_right = 445.0
+offset_bottom = 462.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.207615, 0.045855, 0.20418, 1)
+
+[node name="XPProgress" type="ColorRect" parent="GUI/BottomCenterControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -446.0
+offset_top = 433.0
+offset_right = -446.0
+offset_bottom = 462.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.489416, 0.159895, 0.482111, 1)
 
 [connection signal="timeout" from="FireballTimer" to="GameManager" method="_on_fireball_timer_timeout"]

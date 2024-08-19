@@ -1,14 +1,13 @@
 extends Node2D
 
 @export var interval_sec: float = 1
-@export var player: Node2D
 
 @onready var SLIME = preload("res://scenes/slime.tscn")
 @onready var timer = $Timer
 
 func _ready() -> void:
 	timer.wait_time = interval_sec
-	
+	print("ready")
 
 func _on_timer_timeout() -> void:
 	var slime = SLIME.instantiate()
@@ -16,4 +15,4 @@ func _on_timer_timeout() -> void:
 	slime.position = position
 	slime.speed *= 1 + (randf() * 0.3)
 	
-	get_parent().units.add_child(slime)
+	get_parent().add_unit(slime)

@@ -7,13 +7,13 @@ const JUMP_VELOCITY = -300.0
 
 var target: Node2D
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	do_movement()
 	
-	var units = get_parent().units.get_children()
+	var units = get_parent().get_parent().units
 	
-	for unit in units:
-		target = unit
+	for unit_id in units:
+		target = units[unit_id]
 		break
 
 func do_movement():

@@ -5,7 +5,7 @@ extends Node2D
 
 var last_known_target_pos: Vector2
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta) -> void:
 	var target_pos: Vector2
 	
 	if is_instance_valid(target):

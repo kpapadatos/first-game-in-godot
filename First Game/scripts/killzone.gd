@@ -9,6 +9,7 @@ func _on_body_entered(body):
 	timer.start()
 
 
+# Doesn't fire if node killed by fireball before timeout
 func _on_timer_timeout():
 	Engine.time_scale = 1.0
-	get_tree().reload_current_scene()
+	print(get_tree().reload_current_scene())
