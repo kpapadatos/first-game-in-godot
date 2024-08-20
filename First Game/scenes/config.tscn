@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmostcrujfpme"]
+
+[ext_resource type="Script" path="res://scripts/config.gd" id="1_sqpyr"]
+
+[node name="Config" type="Node"]
+script = ExtResource("1_sqpyr")

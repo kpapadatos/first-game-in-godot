@@ -6,6 +6,9 @@ const JUMP_VELOCITY = -300.0
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var unit = $Unit
 
+func _ready() -> void:
+	unit.pos_override = self
+
 func _physics_process(_delta):
 	do_movement()
 	
@@ -16,7 +19,7 @@ func _physics_process(_delta):
 		var random_unit_index = randi_range(0, num_units - 1)
 		var unit_values = units.values()
 		
-		unit.target = units.values()[random_unit_index]
+		unit.target = unit_values[random_unit_index]
 	else:
 		unit.target = null
 
@@ -39,3 +42,6 @@ func do_movement():
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
 	
 	move_and_slide()
+
+func get_pos():
+	return position

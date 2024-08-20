@@ -1,15 +1,15 @@
 [gd_scene load_steps=15 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
-[ext_resource type="Script" path="res://scenes/game.gd" id="1_yjxmg"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_yjxmg"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_nlliu"]
 [ext_resource type="Texture2D" uid="uid://d0q2g65ahgok" path="res://assets/sprites/world_tileset.png" id="2_r1crl"]
 [ext_resource type="PackedScene" uid="uid://pqp5qaw561fr" path="res://scenes/coin.tscn" id="4_28cek"]
 [ext_resource type="Texture2D" uid="uid://c0o51agdt6p5w" path="res://assets/sprites/Sprite-0001.png" id="4_s5tb2"]
-[ext_resource type="Script" path="res://scenes/background.gd" id="5_oteob"]
+[ext_resource type="Script" path="res://scripts/background.gd" id="5_oteob"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="5_x8euu"]
-[ext_resource type="Script" path="res://scenes/Unit.gd" id="9_la3cs"]
-[ext_resource type="PackedScene" uid="uid://n2hcidq3ip67" path="res://slime_spawner.tscn" id="12_nbp2v"]
+[ext_resource type="Script" path="res://scripts/unit.gd" id="9_la3cs"]
+[ext_resource type="PackedScene" uid="uid://n2hcidq3ip67" path="res://scenes/slime_spawner.tscn" id="12_nbp2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
 texture = ExtResource("2_r1crl")
@@ -235,10 +235,8 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Unit" type="Node2D" parent="Objects/Player"]
-position = Vector2(-111, -112)
 script = ExtResource("9_la3cs")
-hp = 100
-hp_max = 100
+pickup_radius = 40
 
 [node name="Coin" parent="Objects" instance=ExtResource("4_28cek")]
 position = Vector2(73, 68)
