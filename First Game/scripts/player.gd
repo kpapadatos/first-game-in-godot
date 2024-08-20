@@ -27,36 +27,15 @@ func do_movement():
 	
 	# Flip the Sprite
 	if direction > 0:
-		direction = 1
 		animated_sprite.flip_h = false
 	elif direction < 0:
-		direction = -1
 		animated_sprite.flip_h = true
-		
-	if ydirection > 0:
-		ydirection = 1
-	elif ydirection < 0:
-		ydirection = -1
 	
 	if direction == 0 and ydirection == 0:
 		animated_sprite.play("idle")
 	else:
 		animated_sprite.play("run")
 		
-	var speed = SPEED
+	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
 	
-	if(direction and ydirection):
-		speed /= 1.4
-	
-	# Apply movement
-	if direction:
-		velocity.x = direction * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		
-	if ydirection:
-		velocity.y = ydirection * speed
-	else:
-		velocity.y = move_toward(velocity.y, 0, speed)
-
 	move_and_slide()

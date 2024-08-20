@@ -1,5 +1,6 @@
 extends Node2D
 
+var config_file = ConfigFile.new()
 var score = 0
 
 @export var grid_size_x = 16
@@ -18,6 +19,14 @@ const FIREBALL = preload("res://fireball.tscn")
 
 var units: Dictionary = {}
 
+func _ready() -> void:
+	config_file.load("user://state.cfg")
+	
+	var state_score = config_file.get_value("player", "score")
+	
+	if state_score != null:
+		score = int(state_score)
+
 func add_unit(unit: Unit):
 	units[unit.id] = unit
 	objects.add_child(unit)
@@ -29,6 +38,8 @@ func remove_unit(unit: Unit):
 func add_point():
 	score += 1
 	score_label.text = str(score) + " coins"
+	config_file.set_value("player", "score", score)
+	config_file.save("user://state.cfg")
 	
 func add_xp(add_xp: int):
 	player.unit.add_xp(add_xp)
