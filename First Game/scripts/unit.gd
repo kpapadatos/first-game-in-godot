@@ -142,7 +142,8 @@ func die(actor: Unit):
 		
 		scene.objects.add_child(coin)
 		
-		actor.add_xp(20)
+		if actor != null and is_instance_valid(actor):
+			actor.add_xp(20)
 	
 func add_xp(xp_to_add: int):
 	xp += xp_to_add
