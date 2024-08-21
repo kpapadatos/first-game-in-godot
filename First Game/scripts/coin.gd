@@ -6,7 +6,7 @@ var body_to_follow: Node2D = null
 
 func _physics_process(_delta: float) -> void:
 	if body_to_follow:
-		position = position.move_toward(body_to_follow.get_pos(), 1)
+		position = position.move_toward(body_to_follow.position, 1)
 
 func attract(body: Node2D):
 	body_to_follow = body

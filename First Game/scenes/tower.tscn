@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddn3q8pgmwlgn"]
+[gd_scene load_steps=7 format=3 uid="uid://ddn3q8pgmwlgn"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_b1trn"]
 [ext_resource type="Texture2D" uid="uid://rreja5vsd1mx" path="res://assets/sprites/atlas.png" id="1_nn7qx"]
@@ -19,9 +19,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Tower" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dywtd"]
+radius = 5.0
+
+[node name="Tower" type="CharacterBody2D"]
 z_index = 5
 y_sort_enabled = true
+collision_layer = 0
+motion_mode = 1
+platform_wall_layers = 1
 script = ExtResource("1_b1trn")
 is_enemy = false
 
@@ -33,3 +39,7 @@ sprite_frames = SubResource("SpriteFrames_3pou6")
 
 [node name="ProjectileOrigin" type="Node2D" parent="."]
 position = Vector2(0, -29)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_dywtd")

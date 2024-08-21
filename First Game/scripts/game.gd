@@ -39,7 +39,7 @@ func _physics_process(_delta: float) -> void:
 			
 			var tower = TOWER.instantiate()
 			
-			tower.position = player.unit.get_pos()
+			tower.position = player.position
 			
 			add_unit(tower)
 			
@@ -71,9 +71,9 @@ func update_score_label():
 	score_label.text = str(score) + " coins"
 
 func update_xp():
-	level_label.text = "Lv." + str(player.unit.level)
-	xp_label.text = str(player.unit.xp) + " / " + str(player.unit.xp_max)
-	xp_progress.size.x = (float(player.unit.xp) / float(player.unit.xp_max)) * XP_PROGRESS_SIZE_MAX
+	level_label.text = "Lv." + str(player.level)
+	xp_label.text = str(player.xp) + " / " + str(player.xp_max)
+	xp_progress.size.x = (float(player.xp) / float(player.xp_max)) * XP_PROGRESS_SIZE_MAX
 
 func get_random_enemy():
 	var unit: Unit = null

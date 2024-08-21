@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b06ay877hdf0p"]
+
+[ext_resource type="Script" path="res://scenes/underwind.gd" id="1_dmils"]
+[ext_resource type="Texture2D" uid="uid://bdds4afanmtu8" path="res://assets/sprites/BasicParticle.png" id="1_yl7vt"]
+
+[sub_resource type="Curve" id="Curve_5hdpu"]
+_data = [Vector2(0.0166667, 0.571814), 0.0, 0.0, 0, 0, Vector2(0.75, 1), -1.83782, -1.83782, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_juau5"]
+curve = SubResource("Curve_5hdpu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c5nja"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(4.405, 1, 1)
+velocity_pivot = Vector3(0, -5.595, 0)
+direction = Vector3(0, -10, 0)
+spread = 137.783
+initial_velocity_min = 10.1
+initial_velocity_max = 10.1
+gravity = Vector3(0, -98, 0)
+scale_min = 0.02
+scale_max = 0.02
+scale_curve = SubResource("CurveTexture_juau5")
+color = Color(1, 0.247059, 0.262745, 1)
+
+[node name="Underwind" type="Node2D"]
+z_index = 5
+y_sort_enabled = true
+script = ExtResource("1_dmils")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 58
+process_material = SubResource("ParticleProcessMaterial_c5nja")
+texture = ExtResource("1_yl7vt")
+lifetime = 0.4
+one_shot = true

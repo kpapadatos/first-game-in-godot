@@ -26,7 +26,7 @@ func _physics_process(_delta) -> void:
 			finish()
 			
 			if is_instance_valid(target):
-				target.do_damage(actor, 1)	
+				target.do_damage(actor, actor.level)	
 	else:
 		finish()
 		

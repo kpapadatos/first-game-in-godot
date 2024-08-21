@@ -1,10 +1,11 @@
 class_name Unit
-extends Node2D
+extends CharacterBody2D
 
 const COIN = preload("res://scenes/coin.tscn")
 const HEALTHBAR = preload("res://scenes/unit_health_bar.tscn")
 const PICKUP_RADIUS = preload("res://scenes/pickup_radius.tscn")
 const FLOATING_TEXT = preload("res://scenes/floating_text_label.tscn")
+const UNDERWIND = preload("res://scenes/underwind.tscn")
 
 @onready var projectile_origin = find_child("ProjectileOrigin")
 
@@ -20,7 +21,7 @@ var target: Unit = null
 @export var hp_max: int = 1
 @export var pickup_radius = 0.0
 @export var is_player = false
-@export var movement_speed = 1.0
+@export var movement_speed = 100.0
 @export var melee_range = 10.0
 @export var auto_melee_attack = false
 @export var melee_attack_speed = 1.0
@@ -30,7 +31,6 @@ var target: Unit = null
 
 var healthbar = null
 var pickup_radius_scene = null
-var pos_override: Node2D = null
 var melee_attack_timer: Timer = null
 var health_regen_timer: Timer = null
 var is_target_in_melee_range = false
@@ -62,7 +62,7 @@ func _physics_process(_delta: float) -> void:
 		schedule_health_regen()
 	
 	if !is_player and target != null:
-		var distance = position.distance_to(target.get_pos())
+		var distance = position.distance_to(target.position)
 		
 		is_target_in_melee_range = distance <= melee_range
 		
@@ -111,7 +111,9 @@ func _on_melee_attack_timer_timeout():
 	melee_attack_timer = null
 			
 func do_movement():
-	position = position.move_toward(target.get_pos(), movement_speed)
+	velocity = position.direction_to(target.position) * movement_speed 
+	
+	move_and_slide()
 
 func do_damage(actor: Unit, damage: int):
 	hp -= damage
@@ -160,14 +162,11 @@ func add_xp(xp_to_add: int):
 		attack_speed += 0.1
 		projectile_speed += 0.1
 		
+		var underwind = UNDERWIND.instantiate()
+		add_child(underwind)
+		
 	if is_player:
 		get_tree().current_scene.update_xp()
 
-func get_pos():
-	if pos_override:
-		return pos_override.position
-	else:
-		return position
-
 func get_projectile_origin():
-	return projectile_origin if projectile_origin != null else self
+	return projectile_origin.position if projectile_origin != null else Vector2(0, 0)

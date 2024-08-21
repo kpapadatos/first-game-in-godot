@@ -14,7 +14,7 @@ func _on_timeout() -> void:
 	if target != null:
 		var fireball = FIREBALL.instantiate()
 		
-		fireball.position = unit.get_pos() + unit.get_projectile_origin().position
+		fireball.position = unit.position + unit.get_projectile_origin()
 		
 		fireball.speed = unit.projectile_speed / 1.0
 		fireball.target = target

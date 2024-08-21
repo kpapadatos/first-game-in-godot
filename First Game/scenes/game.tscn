@@ -8,8 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://csvb7uojsr3q4" path="res://assets/sprites/metallic-tiles.png" id="4_hlr1e"]
 [ext_resource type="Texture2D" uid="uid://c0o51agdt6p5w" path="res://assets/sprites/Sprite-0001.png" id="4_s5tb2"]
 [ext_resource type="Script" path="res://scripts/background.gd" id="5_oteob"]
-[ext_resource type="PackedScene" uid="uid://djqrlbow3nddj" path="res://auto_fireball.tscn" id="9_5biu5"]
-[ext_resource type="Script" path="res://scripts/unit.gd" id="9_la3cs"]
 [ext_resource type="PackedScene" uid="uid://ddn3q8pgmwlgn" path="res://scenes/tower.tscn" id="10_dmvkk"]
 [ext_resource type="PackedScene" uid="uid://n2hcidq3ip67" path="res://scenes/slime_spawner.tscn" id="12_nbp2v"]
 
@@ -195,6 +193,12 @@ sources/0 = SubResource("TileSetAtlasSource_ashvg")
 sources/1 = SubResource("TileSetAtlasSource_6nfn7")
 sources/2 = SubResource("TileSetAtlasSource_tmued")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snov7"]
+size = Vector2(278, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xfev"]
+size = Vector2(3, 278)
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_yjxmg")
@@ -210,9 +214,8 @@ tile_set = SubResource("TileSet_wvtw0")
 script = ExtResource("5_oteob")
 
 [node name="Mid" type="TileMapLayer" parent="TileMap"]
-visible = false
 use_parent_material = true
-tile_map_data = PackedByteArray("AAD/////AAAGAAEAAAD//wAAAAAGAAEAAAD//wEAAAAGAAEAAAD//wIAAAAGAAEAAAD//wMAAAAGAAEAAAD//wQAAAAGAAEAAAD//wUAAAAGAAEAAAD//wYAAAAGAAEAAAD//wcAAAAGAAEAAAD//wgAAAAGAAEAAAD//wkAAAAGAAEAAAD//woAAAAGAAEAAAD//wsAAAAGAAEAAAD//wwAAAAGAAEAAAD//w0AAAAGAAEAAAD//w4AAAAGAAEAAAD//w8AAAAGAAEAAAD//xAAAAAGAAEAAAAAAP//AAAGAAEAAAABAP//AAAGAAEAAAACAP//AAAGAAEAAAADAP//AAAGAAEAAAAEAP//AAAGAAEAAAAFAP//AAAGAAEAAAAGAP//AAAGAAEAAAAHAP//AAAGAAEAAAAIAP//AAAGAAEAAAAJAP//AAAGAAEAAAAKAP//AAAGAAEAAAALAP//AAAGAAEAAAAMAP//AAAGAAEAAAANAP//AAAGAAEAAAAOAP//AAAGAAEAAAAPAP//AAAGAAEAAAAQAP//AAAGAAEAAAARAP//AAAGAAEAAAARAAAAAAAGAAEAAAARAAEAAAAGAAEAAAARAAIAAAAGAAEAAAARAAMAAAAGAAEAAAARAAQAAAAGAAEAAAARAAUAAAAGAAEAAAARAAYAAAAGAAEAAAARAAcAAAAGAAEAAAD//xEAAAAGAAEAAAAAABEAAAAGAAEAAAABABEAAAAGAAEAAAACABEAAAAGAAEAAAADABEAAAAGAAEAAAAEABEAAAAGAAEAAAAFABEAAAAGAAEAAAAGABEAAAAGAAEAAAAHABEAAAAGAAEAAAAIABEAAAAGAAEAAAAJABEAAAAGAAEAAAAKABEAAAAGAAEAAAALABEAAAAGAAEAAAAMABEAAAAGAAEAAAANABEAAAAGAAEAAAAOABEAAAAGAAEAAAAPABEAAAAGAAEAAAAQABEAAAAGAAEAAAARABEAAAAGAAEAAAARABAAAAAGAAEAAAARAA8AAAAGAAEAAAARAA4AAAAGAAEAAAARAA0AAAAGAAEAAAARAAwAAAAGAAEAAAARAAsAAAAGAAEAAAARAAoAAAAGAAEAAAARAAkAAAAGAAEAAAARAAgAAAAGAAEAAAA=")
+tile_map_data = PackedByteArray("AAAJAAoAAAAGAAEAAAAIAAoAAAAGAAEAAAAHAAoAAAAGAAEAAAA=")
 tile_set = SubResource("TileSet_wvtw0")
 
 [node name="ColorRect" type="ColorRect" parent="TileMap"]
@@ -222,6 +225,36 @@ offset_top = -3.0
 offset_right = 275.0
 offset_bottom = 275.0
 color = Color(0.0941176, 0.121569, 0.192157, 1)
+
+[node name="RigidBody2D" type="StaticBody2D" parent="TileMap"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/RigidBody2D"]
+position = Vector2(136, -1.5)
+shape = SubResource("RectangleShape2D_snov7")
+
+[node name="RigidBody2D3" type="StaticBody2D" parent="TileMap"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/RigidBody2D3"]
+position = Vector2(136, 274)
+shape = SubResource("RectangleShape2D_snov7")
+
+[node name="RigidBody2D2" type="StaticBody2D" parent="TileMap"]
+position = Vector2(1, 24)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/RigidBody2D2"]
+position = Vector2(-2.5, 112)
+shape = SubResource("RectangleShape2D_4xfev")
+
+[node name="RigidBody2D4" type="StaticBody2D" parent="TileMap"]
+position = Vector2(1, 24)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/RigidBody2D4"]
+position = Vector2(273, 112)
+shape = SubResource("RectangleShape2D_4xfev")
 
 [node name="Platforms" type="Node" parent="."]
 
@@ -234,23 +267,13 @@ y_sort_enabled = true
 unique_name_in_owner = true
 y_sort_enabled = true
 position = Vector2(111, 112)
+motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="Objects/Player"]
 position = Vector2(0, -7)
 zoom = Vector2(4, 4)
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="Unit" type="Node2D" parent="Objects/Player"]
-script = ExtResource("9_la3cs")
-hp = 100
-hp_max = 100
-pickup_radius = 30.0
-is_player = true
-health_regeneration = 1.0
-is_enemy = false
-
-[node name="AutoFireball" parent="Objects/Player/Unit" instance=ExtResource("9_5biu5")]
 
 [node name="Coin" parent="Objects" instance=ExtResource("4_28cek")]
 position = Vector2(73, 68)

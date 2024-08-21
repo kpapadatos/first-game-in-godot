@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2w2i5h0lhc6l"]
+[gd_scene load_steps=9 format=3 uid="uid://d2w2i5h0lhc6l"]
 
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_fxbww"]
 [ext_resource type="Texture2D" uid="uid://bl53gpvg5mh1y" path="res://assets/sprites/slime_green.png" id="1_nuk1g"]
@@ -39,10 +39,15 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Slime" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dldht"]
+radius = 6.0
+
+[node name="Slime" type="CharacterBody2D"]
 z_index = 5
 y_sort_enabled = true
 texture_repeat = 1
+collision_layer = 0
+motion_mode = 1
 script = ExtResource("1_fxbww")
 hp = 3
 hp_max = 3
@@ -52,3 +57,7 @@ texture_repeat = 1
 position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_a8uf2")
 autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_dldht")
