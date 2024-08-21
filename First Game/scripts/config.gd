@@ -6,7 +6,7 @@ var file_name = "user://state.cfg"
 func _ready() -> void:
 	config_file.load(file_name)
 	
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
