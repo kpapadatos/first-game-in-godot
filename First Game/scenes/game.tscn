@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=15 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_yjxmg"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://csvb7uojsr3q4" path="res://assets/sprites/metallic-tiles.png" id="4_hlr1e"]
 [ext_resource type="Texture2D" uid="uid://c0o51agdt6p5w" path="res://assets/sprites/Sprite-0001.png" id="4_s5tb2"]
 [ext_resource type="Script" path="res://scripts/background.gd" id="5_oteob"]
-[ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="5_x8euu"]
 [ext_resource type="Script" path="res://scripts/unit.gd" id="9_la3cs"]
 [ext_resource type="PackedScene" uid="uid://n2hcidq3ip67" path="res://scenes/slime_spawner.tscn" id="12_nbp2v"]
 
@@ -194,8 +193,6 @@ sources/0 = SubResource("TileSetAtlasSource_ashvg")
 sources/1 = SubResource("TileSetAtlasSource_6nfn7")
 sources/2 = SubResource("TileSetAtlasSource_tmued")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cn5tm"]
-
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_yjxmg")
@@ -224,12 +221,6 @@ offset_right = 275.0
 offset_bottom = 275.0
 color = Color(0.0941176, 0.121569, 0.192157, 1)
 
-[node name="Killzone" parent="." instance=ExtResource("5_x8euu")]
-position = Vector2(0, 344)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-shape = SubResource("WorldBoundaryShape2D_cn5tm")
-
 [node name="Platforms" type="Node" parent="."]
 
 [node name="FireballTimer" type="Timer" parent="."]
@@ -254,8 +245,11 @@ position_smoothing_enabled = true
 
 [node name="Unit" type="Node2D" parent="Objects/Player"]
 script = ExtResource("9_la3cs")
+hp = 100
+hp_max = 100
 pickup_radius = 40
 is_player = true
+health_regeneration = 1.0
 
 [node name="Coin" parent="Objects" instance=ExtResource("4_28cek")]
 position = Vector2(73, 68)

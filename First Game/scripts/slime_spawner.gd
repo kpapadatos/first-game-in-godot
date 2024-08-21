@@ -11,8 +11,9 @@ func _ready() -> void:
 func _on_timer_timeout() -> void:
 	var slime = SLIME.instantiate()
 	
-	slime.target = get_parent().player
+	slime.target = get_parent().player.unit
 	slime.position = position
-	slime.speed *= 1 + (randf() * 0.3)
+	slime.movement_speed = 0.4 * (1 + (randf() * 0.3))
+	slime.auto_melee_attack = true
 	
 	get_parent().add_unit(slime)
