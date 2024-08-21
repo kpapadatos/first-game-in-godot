@@ -17,6 +17,8 @@ const XP_PROGRESS_SIZE_MAX = 891
 var units: Dictionary = {}
 var enemy_units: Dictionary = {}
 
+const TOWER = preload("res://scenes/tower.tscn")
+
 func _ready() -> void:
 	#get_tree().debug_collisions_hint = true
 	
@@ -29,6 +31,18 @@ func _ready() -> void:
 	if state_score != null:
 		score = int(state_score)
 		update_score_label()
+
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("cast_1"):
+		if score > 10:
+			update_coins(-10)
+			
+			var tower = TOWER.instantiate()
+			
+			tower.position = player.unit.get_pos()
+			
+			add_unit(tower)
+			
 
 func add_unit(unit: Unit):
 	track_unit(unit)
@@ -48,8 +62,8 @@ func remove_unit(unit: Unit):
 		
 	unit.queue_free()
 
-func add_point():
-	score += 1
+func update_coins(add_coins: int):
+	score += add_coins
 	update_score_label()
 	Config.set_value_and_save("player", "score", str(score))
 	

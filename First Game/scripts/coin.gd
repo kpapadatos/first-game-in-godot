@@ -14,5 +14,5 @@ func attract(body: Node2D):
 func _on_body_entered(body):
 	body_to_follow = body
 	
-	get_tree().current_scene.add_point()
+	get_tree().current_scene.update_coins(1)
 	animation_player.play("pickup")

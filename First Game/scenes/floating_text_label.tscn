@@ -44,6 +44,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_jj4m6"]
 resource_name = "default"
+step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -109,9 +110,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -580.0
+offset_left = -576.0
 offset_top = -324.0
-offset_right = -519.0
+offset_right = -515.0
 offset_bottom = -316.0
 grow_horizontal = 2
 grow_vertical = 2

@@ -5,8 +5,12 @@ extends Node2D
 
 var last_known_target_pos: Vector2
 var actor: Unit
+var is_finished = false
 
 func _physics_process(_delta) -> void:
+	if is_finished:
+		return
+	
 	var target_pos: Vector2
 	
 	if is_instance_valid(target):
@@ -19,9 +23,14 @@ func _physics_process(_delta) -> void:
 		position = position.move_toward(target_pos, speed)
 		
 		if position.distance_to(target_pos) < 1:
-			queue_free()
+			finish()
 			
 			if is_instance_valid(target):
 				target.do_damage(actor, 1)	
 	else:
-		queue_free()
+		finish()
+		
+func finish():
+	is_finished = true
+	
+	$AnimationPlayer.play("finish")
