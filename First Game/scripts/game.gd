@@ -24,6 +24,7 @@ func _ready() -> void:
 	
 	if state_score != null:
 		score = int(state_score)
+		update_score_label()
 
 func add_unit(unit: Unit):
 	units[unit.id] = unit
@@ -35,8 +36,11 @@ func remove_unit(unit: Unit):
 
 func add_point():
 	score += 1
-	score_label.text = str(score) + " coins"
+	update_score_label()
 	Config.set_value_and_save("player", "score", str(score))
+	
+func update_score_label():
+	score_label.text = str(score) + " coins"
 
 func add_xp(xp_to_add: int):
 	player.unit.add_xp(xp_to_add)

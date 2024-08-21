@@ -9,3 +9,5 @@ func _physics_process(_delta):
 	animated_sprite.flip_h = player.position.x < position.x
 	
 	position = position.move_toward(player.position, speed)
+	
+	super._physics_process(_delta)

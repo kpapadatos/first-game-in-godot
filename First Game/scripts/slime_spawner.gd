@@ -11,6 +11,7 @@ func _ready() -> void:
 func _on_timer_timeout() -> void:
 	var slime = SLIME.instantiate()
 	
+	slime.target = get_parent().player
 	slime.position = position
 	slime.speed *= 1 + (randf() * 0.3)
 	

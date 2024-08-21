@@ -12,10 +12,11 @@ var id = randi()
 @export var level = 1
 @export var attack_speed = 2
 @export var projectile_speed = 2
-var target = null
+var target: Node2D = null
 @export var hp = 1
 @export var hp_max = 1
 @export var pickup_radius = 0
+@export var is_player = false
 
 var healthbar = null
 var pickup_radius_scene = null
@@ -28,7 +29,7 @@ func _ready() -> void:
 		pickup_radius_scene.unit = self
 		add_child(pickup_radius_scene)
 	
-func _process(_delta):
+func _process(delta: float) -> void:
 	if hp < hp_max and healthbar == null:
 		healthbar = HEALTHBAR.instantiate()
 		
@@ -40,6 +41,9 @@ func _process(_delta):
 	if healthbar != null:
 		healthbar.max_value = hp_max
 		healthbar.value = hp
+		
+func _physics_process(delta: float) -> void:
+	pass
 
 func do_damage(damage: int):
 	hp -= damage

@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-const TILE_SET = 1
+const TILE_SET = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
