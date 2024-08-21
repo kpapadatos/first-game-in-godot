@@ -6,19 +6,21 @@ const HEALTHBAR = preload("res://scenes/unit_health_bar.tscn")
 const PICKUP_RADIUS = preload("res://scenes/pickup_radius.tscn")
 const FLOATING_TEXT = preload("res://scenes/floating_text_label.tscn")
 
+@onready var projectile_origin = find_child("ProjectileOrigin")
+
 var id = randi()
 var target: Unit = null
 
 @export var xp = 0
 @export var xp_max = 100
 @export var level = 1
-@export var attack_speed = 2
-@export var projectile_speed = 2
+@export var attack_speed = 2.0
+@export var projectile_speed = 2.0
 @export var hp: int = 1
 @export var hp_max: int = 1
-@export var pickup_radius = 0
+@export var pickup_radius = 0.0
 @export var is_player = false
-@export var movement_speed = 1
+@export var movement_speed = 1.0
 @export var melee_range = 10.0
 @export var auto_melee_attack = false
 @export var melee_attack_speed = 1.0
@@ -34,7 +36,7 @@ var health_regen_timer: Timer = null
 var is_target_in_melee_range = false
 
 func _ready() -> void:
-	if pickup_radius > 0:
+	if pickup_radius > 0.0:
 		pickup_radius_scene = PICKUP_RADIUS.instantiate()
 		pickup_radius_scene.radius = pickup_radius
 		pickup_radius_scene.unit = self
@@ -168,4 +170,4 @@ func get_pos():
 		return position
 
 func get_projectile_origin():
-	return $ProjectileOrigin if $ProjectileOrigin != null else self
+	return projectile_origin if projectile_origin != null else self

@@ -13,7 +13,6 @@ const XP_PROGRESS_SIZE_MAX = 891
 @onready var xp_label = %XPLabel
 @onready var level_label = %LevelLabel
 @onready var objects = $Objects
-@onready var fireball_timer = %FireballTimer
 
 var units: Dictionary = {}
 var enemy_units: Dictionary = {}
@@ -23,7 +22,7 @@ func _ready() -> void:
 	
 	for object in $Objects.get_children():
 		if object is Unit:
-			add_unit(object)
+			track_unit(object)
 	
 	var state_score = Config.get_value("player", "score")
 	
@@ -32,12 +31,14 @@ func _ready() -> void:
 		update_score_label()
 
 func add_unit(unit: Unit):
+	track_unit(unit)
+	objects.add_child(unit)
+	
+func track_unit(unit: Unit):
 	units[unit.id] = unit
 	
 	if unit.is_enemy:
 		enemy_units[unit.id] = unit
-	
-	objects.add_child(unit)
 	
 func remove_unit(unit: Unit):
 	units.erase(unit.id)
