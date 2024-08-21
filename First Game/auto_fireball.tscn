@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://djqrlbow3nddj"]
+
+[ext_resource type="Script" path="res://scenes/auto_fireball.gd" id="1_um80j"]
+
+[node name="AutoFireball" type="Timer"]
+autostart = true
+script = ExtResource("1_um80j")
+
+[connection signal="timeout" from="." to="." method="_on_timeout"]

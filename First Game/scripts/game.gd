@@ -6,7 +6,6 @@ var score = 0
 @export var grid_size_y = 16
 
 const XP_PROGRESS_SIZE_MAX = 891
-const FIREBALL = preload("res://scenes/fireball.tscn")
 
 @onready var player = %Player
 @onready var score_label = %ScoreLabel
@@ -17,9 +16,15 @@ const FIREBALL = preload("res://scenes/fireball.tscn")
 @onready var fireball_timer = %FireballTimer
 
 var units: Dictionary = {}
+var enemy_units: Dictionary = {}
 
 func _ready() -> void:
 	#get_tree().debug_collisions_hint = true
+	
+	for object in $Objects.get_children():
+		if object is Unit:
+			add_unit(object)
+	
 	var state_score = Config.get_value("player", "score")
 	
 	if state_score != null:
@@ -28,10 +33,18 @@ func _ready() -> void:
 
 func add_unit(unit: Unit):
 	units[unit.id] = unit
+	
+	if unit.is_enemy:
+		enemy_units[unit.id] = unit
+	
 	objects.add_child(unit)
 	
 func remove_unit(unit: Unit):
 	units.erase(unit.id)
+	
+	if unit.is_enemy:
+		enemy_units.erase(unit.id)
+		
 	unit.queue_free()
 
 func add_point():
@@ -42,21 +55,19 @@ func add_point():
 func update_score_label():
 	score_label.text = str(score) + " coins"
 
-func add_xp(xp_to_add: int):
-	player.unit.add_xp(xp_to_add)
-		
-	fireball_timer.wait_time = 1 / player.unit.attack_speed
+func update_xp():
 	level_label.text = "Lv." + str(player.unit.level)
 	xp_label.text = str(player.unit.xp) + " / " + str(player.unit.xp_max)
 	xp_progress.size.x = (float(player.unit.xp) / float(player.unit.xp_max)) * XP_PROGRESS_SIZE_MAX
+
+func get_random_enemy():
+	var unit: Unit = null
+	var num_units = enemy_units.size()
 	
-func _on_fireball_timer_timeout() -> void:
-	if player.unit.target != null:
-		var fireball = FIREBALL.instantiate()
+	if num_units:
+		var random_unit_index = randi_range(0, num_units - 1)
+		var unit_values = enemy_units.values()
 		
-		fireball.position = player.position
+		unit = unit_values[random_unit_index]
 		
-		fireball.speed = player.unit.projectile_speed / 1
-		fireball.target = player.unit.target
-		
-		add_child(fireball)
+	return unit

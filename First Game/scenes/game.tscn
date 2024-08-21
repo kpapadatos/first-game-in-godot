@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=17 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_yjxmg"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://csvb7uojsr3q4" path="res://assets/sprites/metallic-tiles.png" id="4_hlr1e"]
 [ext_resource type="Texture2D" uid="uid://c0o51agdt6p5w" path="res://assets/sprites/Sprite-0001.png" id="4_s5tb2"]
 [ext_resource type="Script" path="res://scripts/background.gd" id="5_oteob"]
+[ext_resource type="PackedScene" uid="uid://djqrlbow3nddj" path="res://auto_fireball.tscn" id="9_5biu5"]
 [ext_resource type="Script" path="res://scripts/unit.gd" id="9_la3cs"]
+[ext_resource type="PackedScene" uid="uid://ddn3q8pgmwlgn" path="res://scenes/tower.tscn" id="10_dmvkk"]
 [ext_resource type="PackedScene" uid="uid://n2hcidq3ip67" path="res://scenes/slime_spawner.tscn" id="12_nbp2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
@@ -223,10 +225,6 @@ color = Color(0.0941176, 0.121569, 0.192157, 1)
 
 [node name="Platforms" type="Node" parent="."]
 
-[node name="FireballTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-autostart = true
-
 [node name="SlimeSpawner" parent="." instance=ExtResource("12_nbp2v")]
 
 [node name="Objects" type="Node2D" parent="."]
@@ -250,6 +248,9 @@ hp_max = 100
 pickup_radius = 40
 is_player = true
 health_regeneration = 1.0
+is_enemy = false
+
+[node name="AutoFireball" parent="Objects/Player/Unit" instance=ExtResource("9_5biu5")]
 
 [node name="Coin" parent="Objects" instance=ExtResource("4_28cek")]
 position = Vector2(73, 68)
@@ -262,6 +263,9 @@ position = Vector2(232, 69)
 
 [node name="Coin4" parent="Objects" instance=ExtResource("4_28cek")]
 position = Vector2(236, 229)
+
+[node name="Tower" parent="Objects" instance=ExtResource("10_dmvkk")]
+position = Vector2(186, 102)
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -407,5 +411,3 @@ theme_override_font_sizes/font_size = 8
 text = "Lv.1"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[connection signal="timeout" from="FireballTimer" to="." method="_on_fireball_timer_timeout"]

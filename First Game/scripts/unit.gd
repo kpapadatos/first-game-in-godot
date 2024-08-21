@@ -24,6 +24,7 @@ var target: Unit = null
 @export var melee_attack_speed = 1.0
 @export var melee_damage = 2.0
 @export var health_regeneration = 0.0
+@export var is_enemy = true
 
 var healthbar = null
 var pickup_radius_scene = null
@@ -102,7 +103,7 @@ func heal(hp_to_heal: int):
 	
 func _on_melee_attack_timer_timeout():
 	if is_target_in_melee_range:
-		target.do_damage(melee_damage)
+		target.do_damage(self, melee_damage)
 	
 	melee_attack_timer.queue_free()
 	melee_attack_timer = null
@@ -110,11 +111,11 @@ func _on_melee_attack_timer_timeout():
 func do_movement():
 	position = position.move_toward(target.get_pos(), movement_speed)
 
-func do_damage(damage: int):
+func do_damage(actor: Unit, damage: int):
 	hp -= damage
 	
 	if hp <= 0:
-		die()
+		die(actor)
 	
 	float_text(str(damage), Color(1, 0, 0) if is_player else Color(1, 1, 1))
 	
@@ -127,7 +128,7 @@ func float_text(text: String, color: Color):
 	
 	add_child(floating_text)
 
-func die():
+func die(actor: Unit):
 	if is_player:
 		get_tree().reload_current_scene()
 	else:
@@ -140,7 +141,8 @@ func die():
 		coin.position = position
 		
 		scene.objects.add_child(coin)
-		scene.add_xp(20)
+		
+		actor.add_xp(20)
 	
 func add_xp(xp_to_add: int):
 	xp += xp_to_add
@@ -155,8 +157,14 @@ func add_xp(xp_to_add: int):
 		attack_speed += 0.1
 		projectile_speed += 0.1
 		
+	if is_player:
+		get_tree().current_scene.update_xp()
+
 func get_pos():
 	if pos_override:
 		return pos_override.position
 	else:
 		return position
+
+func get_projectile_origin():
+	return $ProjectileOrigin if $ProjectileOrigin != null else self
